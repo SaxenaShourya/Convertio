@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: Calsans;
+  src: url("./assets/fonts/CalSans-SemiBold.ttf");
+}
+
+@layer base {
+  html,
+  body {
+    font-family: Outfit, sans-serif;
+    scroll-behavior: smooth;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: Calsans, sans-serif;
+    @apply text-accent;
+  }
+}
