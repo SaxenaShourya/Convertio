@@ -3,6 +3,7 @@ import {
   Card,
   CardHeader,
   CardBody,
+  CardFooter,
   Divider,
   Button,
   Input,
@@ -65,7 +66,9 @@ const Convertor = () => {
           `https://api.frankfurter.app/latest?amount=${amount}&from=${fromCurrency}&to=${toCurrency}`
         )
         .then((response) => {
-          setConvertedAmount(response.data.rates[toCurrency]);
+          setConvertedAmount(
+            `${response.data.rates[toCurrency]} ${toCurrency}`
+          );
           console.log(response.data.rates[toCurrency]);
         });
     } catch (error) {
@@ -148,6 +151,20 @@ const Convertor = () => {
           {isLoading ? "Converting..." : "Convert"}
         </Button>
       </CardBody>
+
+      {convertedAmount && (
+        <>
+          <Divider />
+          <CardFooter>
+            <p>
+              Converted Amount:{" "}
+              <span className="text-primary text-lg xl:text-xl">
+                {convertedAmount}
+              </span>{" "}
+            </p>
+          </CardFooter>
+        </>
+      )}
     </Card>
   );
 };
