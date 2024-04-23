@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Converter } from "../components";
 import home from "../assets/home.webp";
 
 const Convertor = () => {
@@ -20,7 +21,7 @@ const Convertor = () => {
         <h1 className="text-4xl text-center lg:text-5xl xl:text-6xl text-primary">
           Check live rates
         </h1>
-        {/* (Converter Component) */}
+        <Converter />
       </section>
     </main>
   );
