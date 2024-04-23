@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@nextui-org/react";
 
 import { Converter } from "../components";
 import home from "../assets/home.webp";
@@ -12,6 +13,21 @@ const Convertor = () => {
           Effortlessly convert currencies with our intuitive tool. Instant rates
           for over 30+ currencies. Simplify your transactions today!
         </p>
+        <a href="#convertor">
+          <Button
+            color="primary"
+            endContent={
+              <box-icon
+                name="chevrons-down"
+                animation="fade-down"
+                color="#fff"
+              />
+            }
+            className="md:hidden hover:underline text-lg mt-8"
+          >
+            Scroll Down to Continue
+          </Button>
+        </a>
       </section>
 
       <section
