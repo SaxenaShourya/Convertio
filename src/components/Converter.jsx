@@ -14,11 +14,14 @@ import CurrencyDropdown from "./CurrencyDropdown";
 
 const Convertor = () => {
   // API route for fetching all currencies: api.frankfurter.app/currencies
+  // API route for converting currencies at latest rates: api.frankfurter.app/latest?amount=1&from=USD&to=INR
 
   const [currencies, setCurrencies] = useState([]);
   const [fromCurrency, setFromCurrency] = useState("");
   const [toCurrency, setToCurrency] = useState("");
   const [amount, setAmount] = useState("");
+  const [convertedAmount, setConvertedAmount] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchAllCurrencies = async () => {
     await axios
@@ -43,6 +46,33 @@ const Convertor = () => {
     } catch (error) {
       console.log(error);
       toast.error("Unexpected Internal Server Error!");
+    }
+  };
+
+  const convertCurrency = async () => {
+    try {
+      if (fromCurrency === toCurrency) {
+        toast.error("Both the Currencies should not be same.");
+        return;
+      }
+      if (Number(amount) === 0) {
+        toast.error("Amount cannot be zero.");
+        return;
+      }
+      setIsLoading(true);
+      await axios
+        .get(
+          `https://api.frankfurter.app/latest?amount=${amount}&from=${fromCurrency}&to=${toCurrency}`
+        )
+        .then((response) => {
+          setConvertedAmount(response.data.rates[toCurrency]);
+          console.log(response.data.rates[toCurrency]);
+        });
+    } catch (error) {
+      console.log(error);
+      toast.error("Unexpected Internal Server Error!");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -102,9 +132,20 @@ const Convertor = () => {
         <Button
           color="primary"
           className="text-xl"
-          startContent={<box-icon name="transfer-alt" color="#fff" />}
+          startContent={
+            !isLoading ? <box-icon name="transfer-alt" color="#fff" /> : ""
+          }
+          isDisabled={
+            !amount ||
+            !fromCurrency ||
+            !toCurrency ||
+            fromCurrency === toCurrency ||
+            isLoading
+          }
+          onClick={convertCurrency}
+          isLoading={isLoading}
         >
-          Convert
+          {isLoading ? "Converting..." : "Convert"}
         </Button>
       </CardBody>
     </Card>
