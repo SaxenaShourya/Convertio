@@ -18,6 +18,7 @@ const Convertor = () => {
   const [currencies, setCurrencies] = useState([]);
   const [fromCurrency, setFromCurrency] = useState("");
   const [toCurrency, setToCurrency] = useState("");
+  const [amount, setAmount] = useState("");
 
   const fetchAllCurrencies = async () => {
     await axios
@@ -79,7 +80,22 @@ const Convertor = () => {
           />
         </div>
 
-        <Input type="number" label="Amount" placeholder="0.00" isRequired />
+        <Input
+          type="number"
+          label="Amount"
+          placeholder="0.00"
+          isRequired
+          value={amount}
+          onChange={(e) => {
+            const val = e.target.value;
+            if (/^-?\d{0,10}$/.test(val)) {
+              setAmount(val);
+            } else {
+              toast.dismiss();
+              toast.error("Amount should not exceed 10 digits!");
+            }
+          }}
+        />
       </CardHeader>
       <Divider />
       <CardBody>
