@@ -16,6 +16,8 @@ const Convertor = () => {
   // API route for fetching all currencies: api.frankfurter.app/currencies
 
   const [currencies, setCurrencies] = useState([]);
+  const [fromCurrency, setFromCurrency] = useState("");
+  const [toCurrency, setToCurrency] = useState("");
 
   const fetchAllCurrencies = async () => {
     await axios
@@ -33,6 +35,16 @@ const Convertor = () => {
       });
   };
 
+  const handleSwap = () => {
+    try {
+      setFromCurrency(toCurrency);
+      setToCurrency(fromCurrency);
+    } catch (error) {
+      console.log(error);
+      toast.error("Unexpected Internal Server Error!");
+    }
+  };
+
   useEffect(() => {
     fetchAllCurrencies();
   }, []);
@@ -41,8 +53,30 @@ const Convertor = () => {
     <Card className="w-full mt-3 xl:mt-8">
       <CardHeader className="space-y-5 flex flex-col">
         <div className="w-full flex flex-col space-y-2">
-          <CurrencyDropdown title="From" currencies={currencies} />
-          <CurrencyDropdown title="To" currencies={currencies} />
+          <CurrencyDropdown
+            title="From"
+            currencies={currencies}
+            currency={fromCurrency}
+            setCurrency={setFromCurrency}
+          />
+          <div className="flex justify-center items-center">
+            <Button
+              color="primary"
+              isDisabled={
+                !fromCurrency || !toCurrency || fromCurrency === toCurrency
+              }
+              onClick={handleSwap}
+              radius="full"
+            >
+              <box-icon name="transfer" color="#fff" />
+            </Button>
+          </div>
+          <CurrencyDropdown
+            title="To"
+            currencies={currencies}
+            currency={toCurrency}
+            setCurrency={setToCurrency}
+          />
         </div>
 
         <Input type="number" label="Amount" placeholder="0.00" isRequired />
