@@ -7,9 +7,11 @@ import {
   Divider,
   Button,
   Input,
+  code,
 } from "@nextui-org/react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { NumericFormat } from "react-number-format";
 
 import CurrencyDropdown from "./CurrencyDropdown";
 
@@ -66,9 +68,10 @@ const Convertor = () => {
           `https://api.frankfurter.app/latest?amount=${amount}&from=${fromCurrency}&to=${toCurrency}`
         )
         .then((response) => {
-          setConvertedAmount(
-            `${response.data.rates[toCurrency]} ${toCurrency}`
-          );
+          setConvertedAmount({
+            amount: response.data.rates[toCurrency],
+            code: toCurrency,
+          });
           console.log(response.data.rates[toCurrency]);
         });
     } catch (error) {
@@ -158,8 +161,14 @@ const Convertor = () => {
           <CardFooter>
             <p>
               Converted Amount:{" "}
+              <NumericFormat
+                className="text-primary text-lg xl:text-xl"
+                value={convertedAmount.amount}
+                displayType={"text"}
+                thousandSeparator={true}
+              />{" "}
               <span className="text-primary text-lg xl:text-xl">
-                {convertedAmount}
+                {convertedAmount.code}
               </span>{" "}
             </p>
           </CardFooter>
