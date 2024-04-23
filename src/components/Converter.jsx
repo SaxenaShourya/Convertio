@@ -12,6 +12,7 @@ import {
 import axios from "axios";
 import { toast } from "react-toastify";
 import { NumericFormat } from "react-number-format";
+import getSymbolFromCurrency from "currency-symbol-map";
 
 import CurrencyDropdown from "./CurrencyDropdown";
 
@@ -70,7 +71,7 @@ const Convertor = () => {
         .then((response) => {
           setConvertedAmount({
             amount: response.data.rates[toCurrency],
-            code: toCurrency,
+            code: getSymbolFromCurrency(toCurrency) || toCurrency,
           });
           console.log(response.data.rates[toCurrency]);
         });
@@ -161,15 +162,15 @@ const Convertor = () => {
           <CardFooter>
             <p>
               Converted Amount:{" "}
+              <span className="text-primary text-lg xl:text-xl">
+                {convertedAmount.code}
+              </span>{" "}
               <NumericFormat
                 className="text-primary text-lg xl:text-xl"
                 value={convertedAmount.amount}
                 displayType={"text"}
                 thousandSeparator={true}
-              />{" "}
-              <span className="text-primary text-lg xl:text-xl">
-                {convertedAmount.code}
-              </span>{" "}
+              />
             </p>
           </CardFooter>
         </>
