@@ -1,4 +1,14 @@
-# Convertio - Real-Time Currency Converter
+<h1 align="center">Convertio - Real-Time Currency Converter<h1/>
+
+<p align="center">
+  <img src="https://github.com/SaxenaShourya/Convertio/assets/143955797/d133115a-32f1-4b0d-b5e9-a9fbb9563757" width="100" />
+</p>
+<p align="center">
+  <a href="https://convertio-app.vercel.app/">Explore the Project Live!</a>
+</p>
+
+## Preview:
+<img src="https://github.com/SaxenaShourya/Convertio/assets/143955797/c97632ee-9ae6-4b9a-9983-8d44c0ccac15" />
 
 Convertio is a tool that helps you quickly convert money from one currency to another. It shows you the current exchange rates, so you always know how much your money is worth in different currencies. Say hello to easy money conversion with Convertio!
 
