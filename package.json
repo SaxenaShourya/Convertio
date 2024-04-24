@@ -22,6 +22,7 @@
   "dependencies": {
     "@nextui-org/react": "^2.3.5",
     "@vercel/analytics": "^1.2.2",
+    "@vercel/speed-insights": "^1.0.10",
     "axios": "^1.6.8",
     "boxicons": "^2.1.4",
     "currency-symbol-map": "^5.1.0",
