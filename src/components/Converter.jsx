@@ -55,12 +55,12 @@ const Convertor = () => {
 
   const convertCurrency = async () => {
     try {
-      if (fromCurrency === toCurrency) {
-        toast.error("Both the Currencies should not be same.");
+      if (Number(amount) === 0) {
+        toast.error("Amount should not be zero.");
         return;
       }
-      if (Number(amount) === 0) {
-        toast.error("Amount cannot be zero.");
+      if (amount.length > 10) {
+        toast.error("Amount should not exceed 10 digits.");
         return;
       }
       setIsLoading(true);
@@ -123,15 +123,7 @@ const Convertor = () => {
           placeholder="0.00"
           isRequired
           value={amount}
-          onChange={(e) => {
-            const val = e.target.value;
-            if (/^-?\d{0,10}$/.test(val)) {
-              setAmount(val);
-            } else {
-              toast.dismiss();
-              toast.error("Amount should not exceed 10 digits!");
-            }
-          }}
+          onChange={(e) => setAmount(e.target.value)}
         />
       </CardHeader>
       <Divider />
